@@ -52,8 +52,78 @@ Scenario: LWM2M_GENERIC_UAT_MISC
    Then user validates the "GetDeviceFirmwareVersion" test results for "UAT" test case
    # Then user closes the current window
 
-@MotiveBridge019
-Scenario: VZW-Ch02-Server-Parameters-LWM2M
+
+     
+ @MotiveBridge019
+Scenario: VZW-Chapter11Cases: 11.09 FW Update Protocol Support
+ 
+     Given user closes the current window
+    Then user switch back to parent window 
+   # Then user select the created test Suite folder 
+     And user clicks on "VZW-Chapter11Cases" test set 
+	 Then user clicks on the "AutomatedPlayButton"
+	 Then user is navigated to the "VZW-Chapter11Cases" testSet Page 	 
+	 Then user select the "_11_09_FW_Update_Protocol_Support" folders for test case "11.09 FW Update Protocol Support"   
+     Then user selects the "Play" button
+     Then user validates the "11.09 FW Update Protocol Support" test results for "VZ_TC_LWM2MOTADM" test case
+     Then user closes the current window
+  
+  @MotiveBridge019
+Scenario: VZW-Chapter11Cases: 11.10 FW Delivery Method  : Manual Intervention is required
+ 
+        Given user closes the current window
+    Then user switch back to parent window 
+   # Then user select the created test Suite folder 
+     And user clicks on "VZW-Chapter11Cases" test set 
+	 Then user clicks on the "AutomatedPlayButton"
+	 Then user is navigated to the "VZW-Chapter11Cases" testSet Page 	 
+	 Then user select the "_11_10_FW_Delivery_Method" folders for test case "11.10 FW Delivery Method"   
+     Then user selects the "Play" button
+     Then user validates the test results for "11.10 FW Delivery Method" test case
+     Then user closes the current window   
+  
+
+ @MotiveBridge019 
+Scenario: MB_Regression_LWM2M-019-VZW-Chapter04Cases
+
+     Given user closes the current window
+    Then user switch back to parent window 
+    And user clicks on "VZW-Chapter04Cases" test set 
+	Then user clicks on the "AutomatedPlayButton"
+	Then user is navigated to the "VZW-Chapter04Cases" testSet Page 
+	Then user select the "ICCID_4_33" folders for test case "4.33 ICCID" 
+	Then user selects the "Play" button
+	Then user validates the "4.33 ICCID" test results for "VZ_TC_LWM2MOTADM" test case
+	
+	
+	@MotiveBridge019 
+Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases
+
+     Given user closes the current window
+    Then user switch back to parent window 
+    And user clicks on "VZW-Chapter08Cases" test set 
+	Then user clicks on the "AutomatedPlayButton"
+	Then user is navigated to the "VZW-Chapter08Cases" testSet Page 
+	Then user select the "VZ_TC_LWM2MOTADM_10443" folders for test case "8.03 Tx Data" 
+	Then user selects the "Play" button
+	Then user wait for "5" seconds
+	Then user validates the "8.03 Tx Data" test results for "VZ_TC_LWM2MOTADM" test case
+    Then user select the "VZ_TC_LWM2MOTADM_10444" folders for test case "8.04 Rx Data" 
+	Then user selects the "Play" button
+	Then user wait for "5" seconds
+	Then user validates the "8.04 Rx Data" test results for "VZ_TC_LWM2MOTADM" test case
+	 Then user select the "VZ_TC_LWM2MOTADM_10445" folders for test case "8.05 Max Message Size" 
+	Then user selects the "Play" button
+	Then user wait for "5" seconds
+	Then user validates the "8.05 Max Message Size" test results for "VZ_TC_LWM2MOTADM" test case
+	Then user select the "VZ_TC_LWM2MOTADM_10446" folders for test case "8.06 Average Message Size" 
+	Then user selects the "Play" button
+	Then user wait for "6" seconds
+	Then user validates the "8.06 Average Message Size" test results for "VZ_TC_LWM2MOTADM" test case
+	
+	
+	@MotiveBridge019
+   Scenario: VZW-Ch02-Server-Parameters-LWM2M  //Failed cases
     Given user closes the current window
     Then user switch back to parent window 
    # Then user select the created test Suite folder 
@@ -69,74 +139,6 @@ Scenario: VZW-Ch02-Server-Parameters-LWM2M
    #  Then user wait for "2" minutes
      Then user validates the "2.13 Disable Timeout (Repository server)" test results for "VZ_TC_LWM2MOTADM" test case
     
-#     
-# @MotiveBridge019
-#Scenario: VZW-Chapter11Cases: 11.09 FW Update Protocol Support
-# 
-#     Given user closes the current window
-#    Then user switch back to parent window 
-#   # Then user select the created test Suite folder 
-#     And user clicks on "VZW-Chapter11Cases" test set 
-#	 Then user clicks on the "AutomatedPlayButton"
-#	 Then user is navigated to the "VZW-Chapter11Cases" testSet Page 	 
-#	 Then user select the "_11_09_FW_Update_Protocol_Support" folders for test case "11.09 FW Update Protocol Support"   
-#     Then user selects the "Play" button
-#     Then user validates the "11.09 FW Update Protocol Support" test results for "VZ_TC_LWM2MOTADM" test case
-#     Then user closes the current window
-#  
-#  @MotiveBridge019
-#Scenario: VZW-Chapter11Cases: 11.10 FW Delivery Method  : Manual Intervention is required
-# 
-#        Given user closes the current window
-#    Then user switch back to parent window 
-#   # Then user select the created test Suite folder 
-#     And user clicks on "VZW-Chapter11Cases" test set 
-#	 Then user clicks on the "AutomatedPlayButton"
-#	 Then user is navigated to the "VZW-Chapter11Cases" testSet Page 	 
-#	 Then user select the "_11_10_FW_Delivery_Method" folders for test case "11.10 FW Delivery Method"   
-#     Then user selects the "Play" button
-#     Then user validates the test results for "11.10 FW Delivery Method" test case
-#     Then user closes the current window   
-#  
-#
-# @MotiveBridge019 
-#Scenario: MB_Regression_LWM2M-019-VZW-Chapter04Cases
-#
-#     Given user closes the current window
-#    Then user switch back to parent window 
-#    And user clicks on "VZW-Chapter04Cases" test set 
-#	Then user clicks on the "AutomatedPlayButton"
-#	Then user is navigated to the "VZW-Chapter04Cases" testSet Page 
-#	Then user select the "ICCID_4_33" folders for test case "4.33 ICCID" 
-#	Then user selects the "Play" button
-#	Then user validates the "4.33 ICCID" test results for "VZ_TC_LWM2MOTADM" test case
-#	
-#	
-#	@MotiveBridge019 
-#Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases
-#
-#     Given user closes the current window
-#    Then user switch back to parent window 
-#    And user clicks on "VZW-Chapter08Cases" test set 
-#	Then user clicks on the "AutomatedPlayButton"
-#	Then user is navigated to the "VZW-Chapter08Cases" testSet Page 
-#	Then user select the "VZ_TC_LWM2MOTADM_10443" folders for test case "8.03 Tx Data" 
-#	Then user selects the "Play" button
-#	Then user wait for "5" seconds
-#	Then user validates the "8.03 Tx Data" test results for "VZ_TC_LWM2MOTADM" test case
-#    Then user select the "VZ_TC_LWM2MOTADM_10444" folders for test case "8.04 Rx Data" 
-#	Then user selects the "Play" button
-#	Then user wait for "5" seconds
-#	Then user validates the "8.04 Rx Data" test results for "VZ_TC_LWM2MOTADM" test case
-#	 Then user select the "VZ_TC_LWM2MOTADM_10445" folders for test case "8.05 Max Message Size" 
-#	Then user selects the "Play" button
-#	Then user wait for "5" seconds
-#	Then user validates the "8.05 Max Message Size" test results for "VZ_TC_LWM2MOTADM" test case
-#	Then user select the "VZ_TC_LWM2MOTADM_10446" folders for test case "8.06 Average Message Size" 
-#	Then user selects the "Play" button
-#	Then user wait for "6" seconds
-#	Then user validates the "8.06 Average Message Size" test results for "VZ_TC_LWM2MOTADM" test case
-	
 @MotiveBridge019
 Scenario: Logout from Motive Bridge
     

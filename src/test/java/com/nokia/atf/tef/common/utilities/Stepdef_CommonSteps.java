@@ -598,9 +598,13 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 	@Step
 	public void playButton(String buttonToClick) throws Exception {
  
-		Report_getscreenShot("Current Page Screenshot"+RandomStringUtils.randomAlphanumeric(4));
-		WEB_click(WEB_Methods.WEB_findElement("XPATH",buttonToClick));
-	
+		try {
+			Report_getscreenShot("Current Page Screenshot"+RandomStringUtils.randomAlphanumeric(4));
+			WEB_click(WEB_Methods.WEB_findElement("XPATH",buttonToClick));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 		}
 	
@@ -660,8 +664,13 @@ public class Stepdef_CommonSteps extends WEB_Methods {
     //MB
 	@Step
 	public void user_scroll_right(String element) throws Exception {
-		Thread.sleep(1000);
-		WEB_Methods.ScrollHorizontally(element);
+		Thread.sleep(2000);
+		try {
+			WEB_Methods.ScrollHorizontally(element);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

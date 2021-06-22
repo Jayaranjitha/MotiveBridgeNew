@@ -1,4 +1,4 @@
-@jj7d
+#@jj7d
 Feature: Sample Test
 
 @MotiveBridge001

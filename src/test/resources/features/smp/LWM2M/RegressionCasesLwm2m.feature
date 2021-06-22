@@ -136,7 +136,7 @@ Scenario: MB_Regression_LWM2M-002- VZW-Ch11-FOTA-WIFI-ON
 Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch11-FOTA :SU_During_RegistrationAndRegistrationUpdate_11_18
     
       Given user closes the current window
-    Then user switch back to parent window
+      Then user switch back to parent window
    #  Given user switch back to parent window
      And user clicks on "VZW-Ch11-FOTA" test set
      Then user selects the "PlayButton" button

@@ -1075,9 +1075,14 @@ public class Stepdef_19A extends WEB_Methods {
 		@Step
 		public void selectStatusToStartTest(String testStatus) throws Exception {
 			
-		    driver.manage().timeouts().implicitlyWait(2000,TimeUnit.SECONDS);
-			WEB_dropDown("STRING", "//select[@class='form-control']", testStatus);
-			Report_getscreenShot("Status Select Screenshot");
+		    try {
+				driver.manage().timeouts().implicitlyWait(2000,TimeUnit.SECONDS);
+				WEB_dropDown("STRING", "//select[@class='form-control']", testStatus);
+				Report_getscreenShot("Status Select Screenshot");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 			//driver.manage().timeouts().implicitlyWait(3000,TimeUnit.SECONDS);	
 		}
 		

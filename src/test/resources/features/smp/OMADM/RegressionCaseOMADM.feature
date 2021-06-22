@@ -1,4 +1,4 @@
-@RegressionCasePartOMADM @test @testomadm @testlocal @testprodomadm1
+@RegressionCasePartOMADM @test @testomadm @testlocal @testprodomadm
 Feature: Motive Bridge Regression Cases for OMADM Part 01
 
 @MotiveBridge019
