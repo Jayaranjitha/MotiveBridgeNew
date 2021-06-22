@@ -123,7 +123,7 @@ Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases
 	
 	
 	@MotiveBridge019
-   Scenario: VZW-Ch02-Server-Parameters-LWM2M  //Failed cases
+   Scenario: VZW-Ch02-Server-Parameters-LWM2M  //Failed cases /Changed CONTINUE TO PASS
     Given user closes the current window
     Then user switch back to parent window 
    # Then user select the created test Suite folder 

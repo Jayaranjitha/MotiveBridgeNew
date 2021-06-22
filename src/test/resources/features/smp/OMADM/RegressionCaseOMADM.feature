@@ -131,7 +131,7 @@ Given user closes the current window
 	Then user select the "VerifyDMAccSubtree" folders for test case "[3.2] Verify DMAcc Subtree"
 	Then user selects the "Play" button
 	Then user runs the simulator "OMADM"
-	Then user wait for "5" seconds
+	Then user wait for "8" seconds
 	Then user validates the "[3.2] Verify DMAcc Subtree" test results for "Auto" test case 
 	Then user closes the simulator in port "5546" 
 	#MB_Regression_OMADM-014: VZW_GENERIC_AUTO-VerifyVoLTESubtree-[5.1] Verify VoLTE Subtree
