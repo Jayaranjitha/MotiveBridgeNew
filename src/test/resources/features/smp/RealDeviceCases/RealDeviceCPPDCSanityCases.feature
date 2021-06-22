@@ -89,7 +89,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
    
  
 # @MotiveBridge019
-#Scenario: MB_Sanity_DC_Upgrade-004- VZW-Ch11-FOTA 
+#Scenario: MB_Sanity_DC_Upgrade-004- VZW-Ch11-FOTA //PROD not working with real device
 #    
 #     Given user closes the current window
 #    Then user switch back to parent window

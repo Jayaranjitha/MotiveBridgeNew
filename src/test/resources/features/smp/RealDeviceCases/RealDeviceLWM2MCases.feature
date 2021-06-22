@@ -1,4 +1,4 @@
-@testx @test @testomadm @testjenkins @realdevice @realdevice1w
+@testx @test @testjenkins @realdevice @realdevice1w
 Feature: Motive Bridge -Real device related LWM2M cases
 
 @MotiveBridge001
