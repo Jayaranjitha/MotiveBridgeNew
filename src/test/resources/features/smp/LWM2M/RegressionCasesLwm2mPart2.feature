@@ -78,7 +78,7 @@ Scenario: MB_Regression_LWM2M-019-VZW-Chapter03Cases
 	
     
 @MotiveBridge019 
-Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
+Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M //Changed CONTINUE TO PASS
 
      Given user closes the current window 
      Then user switch back to parent window 
@@ -102,12 +102,12 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
 	 And user runs the simulator "LWM2M"	
      Then user scroll to the right to "Submit" button
      Then user selects the "Submit" button 
-     Then user wait for "10" seconds
-      Then user select the "CONTINUE" from status to start the test
-      And user runs the simulator "LWM2M"	
-     Then user scroll to the right to "Submit" button
-     Then user selects the "Submit" button 
-     Then user wait for "10" seconds
+     Then user wait for "20" seconds
+#      Then user select the "CONTINUE" from status to start the test
+#      And user runs the simulator "LWM2M"	
+#     Then user scroll to the right to "Submit" button
+#     Then user selects the "Submit" button 
+     #Then user wait for "10" seconds
      Then user validates the "2.08 Registration Update (DM server)" test results for "VZ_TC_LWM2MOTADM" test case
 	 
 	  
