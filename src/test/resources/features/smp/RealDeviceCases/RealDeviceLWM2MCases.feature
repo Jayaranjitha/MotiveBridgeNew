@@ -26,7 +26,7 @@ Scenario: MB_Sanity_DM_Upgrade-004-Adding test subscriptions for Lwm2m test case
    Then user selects the "ActiveIcon" button
    Then user select the "AutomationRealDevice" folder
    Then user create a folder "Automation_Test"
-   Then user clicks on "VERIZON[LWM2M] - IOT" folder
+   Then user clicks on "AutomationRealDevice" folder
    Then user create a test suite for "Automation_Test" folder for "VERIZON[LWM2M]"
    Then user search for "Device_search"
    Then user add the below test sets

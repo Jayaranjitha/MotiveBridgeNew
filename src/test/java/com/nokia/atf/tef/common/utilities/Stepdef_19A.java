@@ -1209,6 +1209,7 @@ public class Stepdef_19A extends WEB_Methods {
 		Report_getscreenShot("Input values for New Folder Creation Screenshot");
 		driver.findElement(By.xpath("//span[contains(.,'Add New Folder')]")).click();
 		Report_getscreenShot("New Folder Creation Screenshot");
+		Thread.sleep(3000);
 		}
 	
 		//MB
