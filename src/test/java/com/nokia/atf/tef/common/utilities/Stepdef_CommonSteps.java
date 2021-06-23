@@ -600,10 +600,13 @@ public class Stepdef_CommonSteps extends WEB_Methods {
  
 		try {
 			Report_getscreenShot("Current Page Screenshot"+RandomStringUtils.randomAlphanumeric(4));
+			
 			WEB_click(WEB_Methods.WEB_findElement("XPATH",buttonToClick));
-		} catch (IOException e) {
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} 
 		
 		}
@@ -622,10 +625,10 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 				Actions builder = new Actions(driver);
 		        builder.keyDown(Keys.CONTROL)
 		               .click(sort.get(0))
-		               .click(sort.get(1))
-		               .click(sort.get(2))
-		               .click(sort.get(3))
-		               .click(sort.get(4))
+//		               .click(sort.get(1))
+//		               .click(sort.get(2))
+//		               .click(sort.get(3))
+//		               .click(sort.get(4))
 		               .keyUp(Keys.CONTROL).build().perform();		}
 	
 		}

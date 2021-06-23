@@ -1,4 +1,4 @@
-@DCSanityCases  @testlocal @reals1 @realdevice1
+@DCSanityCases  @testlocal @reals1 @realdevice
 Feature: Motive Bridge DC Sanity cases  
 
 @MotiveBridge001
@@ -96,10 +96,8 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
 #     And user clicks on "VZW-Ch11-FOTA" test set
 #     Then user selects the "PlayButton" button
 #     Then user is navigated to the "VZW-Ch11-FOTA" testSet Page
-#     And user runs the simulator "CPP"
 #     Then user select the "DownloadAndUpdate" folders for test case "11.01 Firmware Update (In-Band)"
 #     Then user selects the "Play" button
-#     And user runs the simulator "LWM2M"
 #     Then user select the "CONTINUE" from status to start the test
 #      Then user scroll to the right to "Submit" button
 #     Then user selects the "Submit" button     
@@ -115,7 +113,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
 #     Then user selects the "Submit" button
 #     Then user wait for some time
 #     Then user validates the "11.01 Firmware Update (In-Band)" test results for "VZ_TC_LWM2MOTADM" test case
-#     Then user closes the simulator in port "5545"
+
 	
 @MotiveBridge019 
 Scenario: Logout from Motive Bridge 

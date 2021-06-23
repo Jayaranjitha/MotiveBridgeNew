@@ -113,7 +113,7 @@ Scenario: MB_Sanity_DM_Upgrade-004-Creating Lwm2m device in Motive Bridge Portal
    Then user selects the "Play" button
    Then user validates the "4.13 Battery Level" test results for "VZ_TC_LWM2MOTADM" test case
  #   Then user closes the current window
-   Then user closes the simulator in port "5545"
+  Then user closes the simulator in port "5545"
    
   @MotiveBridge019
 Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch13-UAT-Special-Tests 
@@ -125,11 +125,12 @@ Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch13-UAT-Special-Tests
    Then user selects the "PlayButton" button
    Then user is navigated to the "VZW-Ch13-UAT-Special-Tests" testSet Page
    Then user select the "VZW_Ch13_SMS_Based_Reboot" folders for test case "13.03 SMS Based Device Reboot"
-   Then user selects the "Play" button
+   And user runs the simulator "LWM2M"
+   Then user selects the "Play" button 
    Then user select the "CONTINUE" from status to start the test
     Then user scroll to the right to "Submit" button
      Then user selects the "Submit" button
-     And user runs the simulator "LWM2M"	
+  #   And user runs the simulator "LWM2M"	
     Then user select the "PASS" from status to start the test
     Then user scroll to the right to "Submit" button
      Then user selects the "Submit" button

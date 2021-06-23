@@ -164,6 +164,7 @@ Scenario: VZW_LTEFIELDOA_IOT_AUTO : MB_Regression_OMADM-015
 	Then user selects the "Play" button
 	Then user runs the simulator "OMADM"
 	Then user closes the simulator in port "5546" 
+	Then user wait for "5" seconds
 	Then user checks the "- 1.- Execute TestModule GetIMSDetails"
 	Then user wait for "5" seconds
 	Then user validates the "[4.1] Verify ConnMo_LTE Subtree" test results for "Auto" test case 
