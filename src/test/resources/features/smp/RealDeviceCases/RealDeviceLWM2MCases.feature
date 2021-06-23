@@ -121,24 +121,24 @@ Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases
 	Then user wait for "6" seconds
 	Then user validates the "8.06 Average Message Size" test results for "VZ_TC_LWM2MOTADM" test case
 	
-#	
-#	@MotiveBridge019
-#   Scenario: VZW-Ch02-Server-Parameters-LWM2M  //Failed cases /Changed CONTINUE TO PASS
-#    Given user closes the current window
-#    Then user switch back to parent window 
-#   # Then user select the created test Suite folder 
-#     And user clicks on "VZW-Ch02-Server-Parameters-LWM2M" test set 
-#	 Then user selects the "PlayButton" button 
-#	 Then user is navigated to the "VZW-Ch02-Server-Parameters-LWM2M" testSet Page 	 
-#	 Then user select the "ReadAndWriteServerNodes2_13" folders for test case "2.13 Disable Timeout (Repository server)"   
-#     Then user selects the "Play" button
-#     Then user wait for "3" seconds
-#     Then user select the "PASS" from status to start the test
-#     # Then user scroll to the right to "Submit" button
-#     Then user selects the "Submit" button   
-#   #  Then user wait for "2" minutes
-#     Then user validates the "2.13 Disable Timeout (Repository server)" test results for "VZ_TC_LWM2MOTADM" test case
-#    
+	
+	@MotiveBridge019
+   Scenario: VZW-Ch02-Server-Parameters-LWM2M  //Failed cases /Changed CONTINUE TO PASS Check
+    Given user closes the current window
+    Then user switch back to parent window 
+   # Then user select the created test Suite folder 
+     And user clicks on "VZW-Ch02-Server-Parameters-LWM2M" test set 
+	 Then user selects the "PlayButton" button 
+	 Then user is navigated to the "VZW-Ch02-Server-Parameters-LWM2M" testSet Page 	 
+	 Then user select the "ReadAndWriteServerNodes2_13" folders for test case "2.13 Disable Timeout (Repository server)"   
+     Then user selects the "Play" button
+     Then user wait for "5" seconds
+     Then user select the "PASS" from status to start the test
+     # Then user scroll to the right to "Submit" button
+     Then user selects the "Submit" button   
+   #  Then user wait for "2" minutes
+     Then user validates the "2.13 Disable Timeout (Repository server)" test results for "VZ_TC_LWM2MOTADM" test case
+    
 @MotiveBridge019
 Scenario: Logout from Motive Bridge
     

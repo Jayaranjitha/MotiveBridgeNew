@@ -24,7 +24,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-Adding test subscriptions for Lwm2m test case
 	Then user selects the "ActiveIcon" button 
 	Then user select the "AutomationRealDevice" folder 
 	Then user create a folder "Automation_Test" 
-	Then user clicks on "VERIZON[LWM2M] - IOT" folder 
+	Then user clicks on "AutomationRealDevice" folder 
 	Then user create a test suite for "Automation_Test" folder for "VERIZON[LWM2M]" 
 	Then user search for "Device_search" 
 	Then user add the below test sets 
@@ -80,7 +80,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
 	Then user is navigated to the "VZW-Ch02-Server-Parameters-LWM2M" testSet Page 	 
 	Then user select the "ReadAndWriteServerNodes2_06" folders for test case "2.06 Notification Storing When Disabled or Offline (DM server)" 
 	Then user selects the "Play" button 	
-	Then user wait for some time
+	Then user wait for "2" minutes
 	Then user validates the "2.06 Notification Storing When Disabled or Offline (DM server)" test results for "VZ_TC_LWM2MOTADM" test case 
     Then user select the "ReadAndWriteServerNodes2_14" folders for test case "2.14 Notification Storing When Disabled or Offline (Repository server)"
 	Then user selects the "Play" button 	
