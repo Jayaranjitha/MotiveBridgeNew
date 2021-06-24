@@ -82,7 +82,7 @@ public class FTPExample {
 	
 	
 	
-	public static void printInputStream(String command) throws Exception {
+	public static void printInputStream(String command,String directoryPath) throws Exception {
 		
 		   
 			OutputStream ops = channel.getOutputStream();
@@ -90,7 +90,7 @@ public class FTPExample {
 			channel.connect();
 			InputStream input = channel.getInputStream();
 			ps.println("ssh xdo31");
-			ps.println("cd /opt/CPPSimulator/lwm2mCppClient/bin");
+			ps.println(directoryPath);
 			ps.println(command);
 			ps.close();
 

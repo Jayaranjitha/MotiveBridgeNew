@@ -134,9 +134,9 @@ Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases
      Then user selects the "Play" button
      Then user wait for "5" seconds
      Then user select the "PASS" from status to start the test
-     # Then user scroll to the right to "Submit" button
+     Then user scroll to the right to "Submit" button
      Then user selects the "Submit" button   
-   #  Then user wait for "2" minutes
+     Then user wait for "3" minutes
      Then user validates the "2.13 Disable Timeout (Repository server)" test results for "VZ_TC_LWM2MOTADM" test case
     
 @MotiveBridge019

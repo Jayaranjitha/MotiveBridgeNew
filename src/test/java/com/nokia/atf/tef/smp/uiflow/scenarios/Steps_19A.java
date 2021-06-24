@@ -346,6 +346,15 @@ public class Steps_19A extends WEB_Methods {
 		Report_getscreenShot("Job Details Case");
 	}
 	
+	@Then("^user verifies the job details for \"([^\"]*)\"$")
+	public void jobDetailsForFailure(String errorMessage) throws Exception {
+		Operations.jobDetailsForFailure(errorMessage);
+		Report_getscreenShot("Job Details Case");
+	}
+	
+	
+	
+	
 	@Then("^user verifies the firmware job details$")
 	public void firmwarejobDetails() throws Exception {
 		Operations.firmwarejobDetails();

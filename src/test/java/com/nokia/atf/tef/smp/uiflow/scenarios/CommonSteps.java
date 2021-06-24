@@ -181,8 +181,8 @@ public class CommonSteps extends WEB_Methods {
 		CommonSteps.lwm2mSimulatorRun();
 		}
 		
-		if(protocol.equalsIgnoreCase("CPP")) {		
-			stepDef_19A.CPPSimulatorRun();
+		if(protocol.contains("CPP")) {		
+			stepDef_19A.CPPSimulatorRun( protocol);
 		}
 		
 		if(protocol.equalsIgnoreCase("RealDevice")) {		

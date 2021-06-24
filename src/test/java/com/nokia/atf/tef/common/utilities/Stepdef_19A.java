@@ -623,6 +623,30 @@ public class Stepdef_19A extends WEB_Methods {
 						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[9]")).getText());
 
 			}
+			
+			@Step
+			public void jobDetailsForFailure(String errorMessage) throws Exception {
+				driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[contains(.,'FAILURE')])[2]")));
+
+				Assert.assertEquals(Stepdef_CommonSteps.lwm2miccid,
+						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[1]")).getText());
+				Assert.assertEquals(Stepdef_CommonSteps.lwm2mmsisdn,
+						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[2]")).getText());
+
+				Assert.assertEquals("FAILURE",
+						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[6]")).getText());
+				Assert.assertEquals("FAILURE",
+						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[7]")).getText());
+				Assert.assertEquals(errorMessage,
+								driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[8]")).getText());
+					
+				Assert.assertEquals("SENT",
+						driver.findElement(By.xpath("(//td[contains(@class,'popup-overlay')])[10]")).getText());
+
+			}
+			
+			
 		
 			
 			@Step
@@ -1162,7 +1186,11 @@ public class Stepdef_19A extends WEB_Methods {
 		public void selectTestSet(String testSet) throws Exception {
 			
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@id,'anchor')][contains(.,'"+testSet+"')]")));
-			driver.findElement(By.xpath ("//a[contains(@id,'anchor')][contains(.,'"+testSet+"')]")).click();
+			//driver.findElement(By.xpath ("//a[contains(@id,'anchor')][contains(.,'"+testSet+"')]")).click();
+			
+			driver.findElement(By.xpath ("//a[contains(@id,'anchor')][text()='"+testSet+"']")).click();
+		
+		
 		}
 		
 		
@@ -2156,16 +2184,44 @@ public class Stepdef_19A extends WEB_Methods {
        
 	}
 	
-    public void CPPSimulatorRun() throws Exception {
+    public void CPPSimulatorRun(String protocol) throws Exception {
 
-//    	Stepdef_CommonSteps.lwm2miccid="000863045310562";
-//    	Stepdef_CommonSteps.lwm2mmsisdn="3045396049 ";
+//    	Stepdef_CommonSteps.lwm2miccid="000863045280050";
+//    	Stepdef_CommonSteps.lwm2mmsisdn="3045316214 ";
+    	String command="";
+    	String path="";
     	 ftp = new FTPExample(TUNNEL_URL, TUNNEL_PORT,TUNNEL_USER,TUNNEL_PASS);
     	 ftp.connect(tunnelLocalPORT,tunnelRemoteHOST,tunnelRemotePORT);
-    	 String command ="./run.sh -u coap://xdompct.xdev.motive.com:5683  -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5589 --notify 10";
- 	     FTPExample.printInputStream(command);
+//    	 if(protocol.equalsIgnoreCase("CPP")) {
+//           path = "cd /opt/CPPSimulator/lwm2mCppClient/bin";
+//    	  command ="./run.sh -u coap://xdompct.xdev.motive.com:5683  -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5589 --notify 10";
+//    	 }
+//    	 if(protocol.equalsIgnoreCase("CPP_DC")) {
+//    		 path = "cd /opt/CPPSimulator/lwm2mCppClient/bin";
+//        	  command ="./run.sh -u coap://127.0.0.1:30683 -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --fwInitialState 0  --conn_timeout 300 -p 30 --lifetime 3600 --http 5517 --notify 10 --fwEndState 102:0 --fwInsufficentBattery true";     	  		
+//    	 }
+    	 
+    	 switch (protocol) {
+         case "CPP":
+        	   path = "cd /opt/CPPSimulator/lwm2mCppClient/bin";
+         	  command ="./run.sh -u coap://xdompct.xdev.motive.com:5683  -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5589 --notify 10";
+             break;
+         case "CPP_DC":
+    		 path = "cd /opt/CPPSimulator/lwm2mCppClient/bin";
+       	     command ="./run.sh -u coap://127.0.0.1:30683 -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --fwInitialState 0  --conn_timeout 300 -p 30 --lifetime 3600 --http 5517 --notify 10 --fwEndState 102:0 --fwInsufficentBattery true";     	  		
+       	     break;
+         case "CPP_SUCancel":
+        	 path = "cd /opt/CPPSimulator_SUCancel/lwm2mCppClient/bin";
+        	 command="./run.sh -u coap://127.0.0.1:30683 -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --downloadTime 120 --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5511 --notify 10";
+             break;
+         default:
+             logger.info("Invalid simulator name");
+    	 }
+    	 FTPExample.printInputStream(command,path);
  	    // ftp.disconnect();
 	}
+    
+    
 
     public void realDeviceRun() throws Exception {
     	
