@@ -167,6 +167,14 @@ public class Steps_19A extends WEB_Methods {
 	
 	}
 	
+	@Then("^user \"([^\"]*)\" the dynamic variable \"([^\"]*)\"$")
+	public void deleteDynamicVariable(String action, String dynamicVariable) throws Exception {
+	Operations.deleteDynamicVariable(action,dynamicVariable);
+	
+	}
+	
+	
+	
 
 	@Then("^user select the \"([^\"]*)\" from status to start the test$")
 	public void selectStatusToStartTest(String testStatus) throws Exception {
@@ -193,8 +201,19 @@ public class Steps_19A extends WEB_Methods {
 	
 	@Then("^user hits the action \"([^\"]*)\" from the Impact$")
 	public void actionFromImpact(String actionName) throws Exception {
-	Operations.postRequestForInitiatingJOB();
+	Operations.postRequestForInitiatingJOB(actionName);
 	}
+	
+	@Then("^user hits the action \"([^\"]*)\" from the DM Impact$")
+	public void actionFromDMImpact(String actionName) throws Exception {
+	Operations.postRequestForInitiatingDMJOB(actionName);
+	}
+	
+//	@Then("^user hits the action \"([^\"]*)\" from the Impact for DM$")
+//	public void DMactionFromImpact(String actionName) throws Exception {
+//	Operations.postDMRequestForInitiatingJOB();
+//	}
+	
 	
 	@Then("^user verifies the Impact Page$")
 	public void impactPage() throws Exception {

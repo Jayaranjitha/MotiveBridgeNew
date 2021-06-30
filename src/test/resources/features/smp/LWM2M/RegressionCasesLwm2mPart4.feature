@@ -123,7 +123,30 @@ Scenario: MB_Regression_LWM2M-VZW_Ch16_NB-IoT
      Then user scroll to the right to "Submit" button
      Then user selects the "Submit" button 
 	 Then user validates the "16.1 NB-IoT" test results for "VZ_TC_LWM2MOTADM" test case 
-       
+      
+   @MotiveBridge019
+ Scenario: FOTAUponRegistration:FirmwareUpgradeByImageUponRegistration- FirmwareUpgradeByImageUponRegistration
+     Given user closes the current window
+    Then user switch back to parent window
+  #  Then user runs the simulator "LWM2M"
+    #Then user select the created test Suite folder 
+     And user clicks on "FOTAUponRegistration" test set
+     Then user selects the "PlayButton" button
+     Then user is navigated to the "FOTAUponRegistration" testSet Page
+     Then user select the "FirmwareUpgradeByImageUponRegistration" folders for test case "FirmwareUpgradeByImageUponRegistration"
+     Then user selects the "Play" button  
+     Then user wait for "5" seconds
+     Then user select the "OUTBAND" from status to start the test
+     Then user scroll to the right to "Submit" button
+     Then user selects the "Submit" button
+      Then user wait for "5" seconds
+     Then user selects the "Generic_LWM2M_Generic_Device_2.2_2.4" button
+     Then user scroll to the right to "Submit" button
+     Then user selects the "Submit" button
+     Then user wait for "2" minutes
+     Then user validates the "FirmwareUpgradeByImageUponRegistration" test results for "VZ_TC_LWM2MOTADM" test case
+     Then user closes the simulator in port "5545"
+   
 
  
 Scenario: Logout from Motive Bridge

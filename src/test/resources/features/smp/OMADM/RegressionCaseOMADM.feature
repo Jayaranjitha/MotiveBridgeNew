@@ -177,7 +177,7 @@ Scenario: OMADM Delete Device
    Then user switch back to parent window  
     Then user clicks on "Manage Devices"
     Then user clicks on "VERIZON - IOT" protocol
-    Then user is navigated to the "OMADMDeleteDevice" create device page  
+    Then user is navigated to the "OMADMORLWM2MDeleteDevice" create device page  
     Then user select the "DeleteDevice" folders for test case "DeleteDevice"
     Then user selects the "Play" button
      Then user enters the "DeviceID" value

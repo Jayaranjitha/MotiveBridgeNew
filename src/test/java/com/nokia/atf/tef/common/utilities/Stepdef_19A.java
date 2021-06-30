@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import javax.jws.WebMethod;
+//import javax.jws.WebMethod;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -125,6 +125,7 @@ public class Stepdef_19A extends WEB_Methods {
 	@Value("${smp.nbi.uiworkflow.impactpassword}")
 	private String impactPassword;
 	
+	public static boolean smsTxCounter = false;
 	public static String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());;
 
 	public static String fileTypes = "";
@@ -520,12 +521,12 @@ public class Stepdef_19A extends WEB_Methods {
 				if(driver.findElements(By.xpath("//h6[contains(.,'Test Results')]")).size()<1) {
 					driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				}
-				
+				Report_screenshot("Before Validation Pages"+RandomStringUtils.randomAlphanumeric(8));
 				  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(.,'Test Results')]")));
 				 if(driver.findElements(By.xpath("//span[contains(.,'Passed')]")).size()>=1){
 				   Assert.assertEquals("Test case Status","Passed", driver.findElement(By.xpath("//span[contains(.,'Passed')]")).getText());
 				   Thread.sleep(1000);
-				   logger.info("Test Case is passed");
+				   logger.info("TEST CASE IS PASSED");
 				   
 				 }
 				 
@@ -718,6 +719,8 @@ public class Stepdef_19A extends WEB_Methods {
 		public void verifiesUI(String button) throws Exception {
 	           
 			   String propertyValue= WEB_Methods.WEB_getPropertyValue(button);
+			   logger.info("df"+propertyValue);
+			   logger.info("sdf"+WEB_Methods.WEB_getPropertyValue("Write_4_0_30000_1_Clone"));
 			   int value = driver.findElements(By.xpath(propertyValue)).size();
 		       Assert.assertEquals("Passed",1, value);
 		       
@@ -780,7 +783,7 @@ public class Stepdef_19A extends WEB_Methods {
 	    WEB_Methods.switchWindow(Stepdef_CommonSteps.parentGUID);
 	    logger.info(driver.getTitle() + driver.getCurrentUrl() +driver.getWindowHandle());
 	    childGUID= driver.getWindowHandle();
-	    if(!value.equalsIgnoreCase("Manage Firmware") || !value.equalsIgnoreCase("OMADMDeleteDevice")) {
+	    if(!value.equalsIgnoreCase("Manage Firmware") || !value.equalsIgnoreCase("OMADMORLWM2MDeleteDevice")) {
 	    CommonSteps.generateICCIDMSISDN(value);
 	    }
 	    
@@ -1088,10 +1091,25 @@ public class Stepdef_19A extends WEB_Methods {
 			actions.doubleClick(elementLocator).perform();
 			
  			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='jstree-anchor'][contains(@id,'anchor')][contains(.,'"+testCaseName+"')]")));
-			driver.findElement(By.xpath ("//a[@class='jstree-anchor'][contains(@id,'anchor')][contains(.,'"+testCaseName+"')]")).click();
+		 	driver.findElement(By.xpath ("//a[@class='jstree-anchor'][contains(@id,'anchor')][contains(.,'"+testCaseName+"')]")).click();
+            
+		 	if(testCaseName.equalsIgnoreCase("8.01 SMS Tx Counter")) {
+		 		
+		 	  smsTxCounter =true;
+		 	  logger.info("SMS Tx Counter is" +smsTxCounter);
+		 	}
 		}
 		
-	
+
+		@Step
+		public void deleteDynamicVariable(String action,String dynamicVariable) throws Exception {
+
+		   DMdeviceIDBySubscriberId();
+		   String url ="https://xvzwcdpvii.xdev.motive.com/rest/device/"+Stepdef_CommonSteps.deviceIdImpact+"/dynamicvariable/"+dynamicVariable;
+		   Response r = new Stepdef_CommonSteps().deleteDMRequest(url,impactUsername,impactPassword);
+			logger.info("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
+	    	Assert.assertEquals(200, r.getStatusCode());
+		}
 		
 		
 		
@@ -1159,7 +1177,7 @@ public class Stepdef_19A extends WEB_Methods {
 		@Step
 		public void selectTestSuiteFolder() throws Exception {
 			Stepdef_CommonSteps.parentGUID=driver.getWindowHandle();
-		//	Stepdef_CommonSteps.friendlyName="357862090060866_AT855";
+			//Stepdef_CommonSteps.friendlyName="000863047535622_AT454";
 			
 			Thread.sleep(1000);
 			int sizes= driver.findElements(By.xpath("//i[contains(@class,'jstree-icon jstree-ocl')]")).size();
@@ -1888,6 +1906,21 @@ public class Stepdef_19A extends WEB_Methods {
 		System.out.println("deviceID :" +Stepdef_CommonSteps.deviceIdImpact);
 	}
 	
+	public void DMdeviceIDBySubscriberId() throws Exception {
+		//Stepdef_CommonSteps.lwm2mmsisdn="3045367333";
+	
+		 String url ="https://xvzwcdpvii.xdev.motive.com/rest/device/subscriber/"+Stepdef_CommonSteps.lwm2mmsisdn;
+		 Response r = new Stepdef_CommonSteps().getDMRequest(url,impactUsername,impactPassword);
+		 logger.info("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
+
+		System.out.println("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
+		Assert.assertEquals(200, r.getStatusCode());
+
+		Stepdef_CommonSteps.deviceIdImpact = new JSONArray(r.asString()).getJSONObject(0).getString("id");
+	
+		System.out.println("deviceID :" +Stepdef_CommonSteps.deviceIdImpact);
+	}
+	
 	public void impactPage() throws Exception{
 	    Thread.sleep(2000);
 	    System.out.println("size is" +driver.findElements(By.xpath("//a[text()='Impersonate as Tenant']")).size());
@@ -1895,11 +1928,11 @@ public class Stepdef_19A extends WEB_Methods {
 		Assert.assertEquals(true, driver.findElements(By.xpath("//img[contains(@class,'img-logo')]")).size()==1);
 		
 	}
-	public void postRequestForInitiatingJOB() throws Exception {
+	public void postRequestForInitiatingJOB(String actionName) throws Exception {
 
 		deviceIDBySubscriberId();
         String url ="https://xdompct.xdev.motive.com/rest/device/"+Stepdef_CommonSteps.deviceIdImpact+"/job";
-        String jsonBody = Stepdef_CommonSteps.jsonData("Operations.json");
+        String jsonBody = Stepdef_CommonSteps.jsonData("CommonActionsOperations.json",actionName);
 		Response r = new Stepdef_CommonSteps().postRequest(url,jsonBody,"461",impactUsername,impactPassword);
 		logger.info("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
         logger.info("url for next" +r.getHeader("Location"));
@@ -1916,6 +1949,31 @@ public class Stepdef_19A extends WEB_Methods {
 		 Assert.assertEquals("SUCCESS", jobStatus);
 		 
 	}
+	
+	
+	
+	public void postRequestForInitiatingDMJOB(String actionName) throws Exception {
+
+		DMdeviceIDBySubscriberId();
+        String url ="https://xvzwcdpvii.xdev.motive.com/rest/device/"+Stepdef_CommonSteps.deviceIdImpact+"/job";
+        String jsonBody = Stepdef_CommonSteps.jsonData("CommonActionsOperations.json",actionName);
+		Response r = new Stepdef_CommonSteps().postDMRequest(url,jsonBody,impactUsername,impactPassword);
+		logger.info("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
+        logger.info("url for next" +r.getHeader("Location"));
+		System.out.println("Response is" + r.getBody().toString() + "Status code" + r.getStatusCode());
+		Assert.assertEquals(201, r.getStatusCode());
+		
+	     Thread.sleep(70*1000);
+		String jobURL[]= r.getHeader("Location").split("rest");
+		String jobstatusURL="https://xvzwcdpvii.xdev.motive.com/rest"+jobURL[1];
+		 Response rp = new Stepdef_CommonSteps().getDMRequest(jobstatusURL,impactUsername,impactPassword);
+	
+		 String jobStatus= new JSONObject(rp.asString()).getString("jobStatus");
+		 System.out.println("jobStatus is" +jobStatus);
+		 Assert.assertEquals("SUCCESS", jobStatus);
+		 
+	}
+	
 	
 	
 	
@@ -2151,7 +2209,7 @@ public class Stepdef_19A extends WEB_Methods {
 
        try {
     	   
-    //	  CommonSteps.lwm2miccid= "918889997613264";
+       //CommonSteps.lwm2miccid= "918889997613264";
 		  PropertyDemo.createPropertyFile(CommonSteps.lwm2miccid);
 		  
 		 CommonSteps.closeSimulator("5546");
@@ -2214,6 +2272,10 @@ public class Stepdef_19A extends WEB_Methods {
         	 path = "cd /opt/CPPSimulator_SUCancel/lwm2mCppClient/bin";
         	 command="./run.sh -u coap://127.0.0.1:30683 -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --downloadTime 120 --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5511 --notify 10";
              break;
+         case "CPP_DCCommon":
+        	 path = "cd /opt/CPPSimulator/lwm2mCppClient/bin";
+        	 command="./run.sh -u coap://127.0.0.1:30683 -n 1 -d urn:imei-msisdn:"+Stepdef_CommonSteps.lwm2miccid+"-"+Stepdef_CommonSteps.lwm2mmsisdn+" --sms "+Stepdef_CommonSteps.lwm2mmsisdn+ " --conn_timeout 300 -p 30 --lifetime 3600 --http 5524 --notify 10";
+             break;
          default:
              logger.info("Invalid simulator name");
     	 }
@@ -2241,14 +2303,40 @@ public class Stepdef_19A extends WEB_Methods {
 		 runsimulator_OMADM();
 	 }
 	 
+	 
+	 public void checkUIPageMessage(String stepname) throws Exception {
+	  
+		 try {
+			 Thread.sleep(2000);  
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			 WebElement element = wait.until(
+			         ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(.,'"+stepname+"')]")));
+			// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(.,'"+stepname+"')])[9]")));
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	 }
 	 public void checksandStartLwm2m(String stepname) throws Exception {
+		
+		 try {
+			 Thread.sleep(7000);
+		    
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			 WebElement element = wait.until(
+			         ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(.,'"+stepname+"')]")));
+			// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(.,'"+stepname+"')])[9]")));
+			  CommonSteps. lwm2mSimulatorRunquick();
+			  //CommonSteps.lwm2mSimulatorRun();
+			  Thread.sleep(30000);
 			
 			
-		 WebDriverWait wait = new WebDriverWait(driver, 10);
-		 WebElement element = wait.until(
-		         ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(.,'"+stepname+"')]")));
-		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(.,'"+stepname+"')])[9]")));
-		 CommonSteps.lwm2mSimulatorRun();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	 }
 	 
 	 public void jobToComplete(String testName) throws Exception {
@@ -2281,7 +2369,10 @@ public class Stepdef_19A extends WEB_Methods {
 		logger.info("TUNNEL URL" +TUNNEL_PASS);
 		logger.info("TUNNEL URL" +TUNNEL_USER);
 	
-	
+		String propertyValueq= WEB_Methods.WEB_getPropertyValue("Manage_Firmware");
+		String propertyValue= WEB_Methods.WEB_getPropertyValue("Write_4_0_30000_1_Clone");
+		logger.info("ksdf" +propertyValue);
+		logger.info("ksdf" +propertyValueq);
 	}
 
 

@@ -95,6 +95,18 @@ Scenario: MB_Regression_LWM2M-019-VZW-Chapter04Cases
 	Then user selects the "Play" button
 	Then user validates the "4.33 ICCID" test results for "VZ_TC_LWM2MOTADM" test case
 	
+
+ @MotiveBridge019 
+Scenario: MB_Regression_LWM2M-019-VZW-Chapter07Cases
+
+     Given user closes the current window
+    Then user switch back to parent window 
+    And user clicks on "VZW-Chapter07Cases" test set 
+	Then user clicks on the "AutomatedPlayButton"
+	Then user is navigated to the "VZW-Chapter07Cases" testSet Page 
+     Then user select the "ReadLocationNodes_7_06" folders for test case "7.06 Velocity" 
+	Then user selects the "Play" button
+	Then user validates the "7.06 Velocity" test results for "VZ_TC_LWM2MOTADM" test case 
 	
 	@MotiveBridge019 
 Scenario: MB_Regression_LWM2M-019-VZW-Chapter08Cases

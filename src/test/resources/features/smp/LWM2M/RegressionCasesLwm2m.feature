@@ -155,6 +155,8 @@ Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch11-FOTA :SU_During_RegistrationAndRegi
      Then user validates the "11.18 SU during Registration And RegistrationUpdate" test results for "VZ_TC_LWM2MOTADM" test case
    #  Then user closes the current window 
 
+
+
   @MotiveBridge019
 Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch11-FOTA :SU_During_RegistrationAndRegistrationUpdate_11_18_2
     

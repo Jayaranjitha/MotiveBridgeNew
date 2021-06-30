@@ -181,6 +181,10 @@ public class CommonSteps extends WEB_Methods {
 		CommonSteps.lwm2mSimulatorRun();
 		}
 		
+		if(protocol.equalsIgnoreCase("LWM2MQuickStart")) {
+			CommonSteps.lwm2mSimulatorRunquick();
+		}
+		
 		if(protocol.contains("CPP")) {		
 			stepDef_19A.CPPSimulatorRun( protocol);
 		}
@@ -201,6 +205,13 @@ public class CommonSteps extends WEB_Methods {
 	public void checksandStartLWM2M(String stepname) throws Exception {
 		stepDef_19A.checksandStartLwm2m(stepname);
 	}
+	
+	@Then("^user checks the \"([^\"]*)\" in UI$")
+	public void checkUIPageMessage(String stepname) throws Exception {
+		stepDef_19A.checkUIPageMessage(stepname);
+	}
+	
+	
 	
 	@Then("^user wait for job to complete \"([^\"]*)\"$")
 	public void jobToComplete(String testCaseName) throws Exception {

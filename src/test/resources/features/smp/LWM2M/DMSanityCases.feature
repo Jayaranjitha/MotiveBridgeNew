@@ -116,7 +116,7 @@ Scenario: MB_Sanity_DM_Upgrade-004-Creating Lwm2m device in Motive Bridge Portal
   Then user closes the simulator in port "5545"
    
   @MotiveBridge019
-Scenario: MB_Sanity_DM_Upgrade-004- VZW-Ch13-UAT-Special-Tests 
+Scenario: VZW-Ch13-UAT-Special-Tests-13.03 SMS Based Device Reboot
     
    Given user closes the current window
    Then user switch back to parent window

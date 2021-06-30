@@ -1,13 +1,12 @@
 @echo off
 set DEV_SIM=C:\Users\KALAIMAN\Documents\OMADM\devicesimulator\
-set DM_URL=http://localhost:8080/southbound-connector/dm
+set DM_URL=http://localhost:7878/southbound-connector/dm
 rem set DM_URL=%1
 set UPDATE_TRIGGER=-update-trigger
 set ACCEPT_DOWNLOAD =true
 set ACCEPT_UPDATE=-accept-update
 set SIMULATE_DOWNLOAD_FAILURE=no
 set SIMULATE_CORRELATOR_MISMATCH =no
-
 rem init classpath
 set CLASSPATH=%DEV_SIM%profiles\.;%DEV_SIM%dmtree\.;%DEV_SIM%lib\*;
 set JAVA=C:\Users\KALAIMAN\Documents\OMADM\Java\jdk1.8.0_181\jre\bin\java

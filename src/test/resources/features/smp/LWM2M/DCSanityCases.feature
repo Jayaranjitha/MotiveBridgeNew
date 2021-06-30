@@ -1,4 +1,4 @@
-@DCSanityCases  @testlocal
+@DCSanityCases  @testlocal @chk
 Feature: Motive Bridge DC Sanity cases  
 
 @MotiveBridge001 
@@ -119,7 +119,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
 	Then user is navigated to the "VZW-Ch02-Server-Parameters-LWM2M" testSet Page 	 
 	 Then user select the "ReadAndWriteServerNodes2_06" folders for test case "2.06 Notification Storing When Disabled or Offline (DM server)" 
 	And user runs the simulator "CPP" 
-	And user hits the action "AddObjectLWM2M-Server-/1/3" from the Impact
+	And user hits the action "AddObjectLWM2M-Server_1_3" from the Impact
 	Then user selects the "Play" button 	
 	Then user wait for some time
 	Then user validates the "2.06 Notification Storing When Disabled or Offline (DM server)" test results for "VZ_TC_LWM2MOTADM" test case 
@@ -127,7 +127,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-VZW-Ch02-Server-Parameters-LWM2M
     Then user select the "ReadAndWriteServerNodes2_14" folders for test case "2.14 Notification Storing When Disabled or Offline (Repository server)" 
 	And user runs the simulator "CPP" 
 	Then user selects the "Play" button 	
-	And user hits the action "AddObjectLWM2M-Server-/1/3" from the Impact
+	And user hits the action "AddObjectLWM2M-Server_1_3" from the Impact
 	Then user wait for some time
 	Then user validates the "2.14 Notification Storing When Disabled or Offline (Repository server)" test results for "VZ_TC_LWM2MOTADM" test case 	
     Then user closes the simulator in port "5546" 

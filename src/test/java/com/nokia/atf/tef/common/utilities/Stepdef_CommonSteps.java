@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -377,8 +380,8 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 	public void lwm2mSimulatorRun() throws Exception {
 
 		closeSimulator("5545");
-//		lwm2miccid= "000863047618011";
-//	    lwm2mmsisdn="3045335628";
+//		lwm2miccid= "000863047535622";
+//	    lwm2mmsisdn="3045312217";
 		String filePath = "\\TestData\\LWM2M\\";
 		String fileName = lwm2miccid + "-" + lwm2mmsisdn + "_bootstrap-QA.bat";
 
@@ -386,6 +389,22 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 		createNewFile(filePath, fileName);
 
 		executeBatchFile(filePath);
+		Thread.sleep(2000);
+	}
+	
+	
+	public void lwm2mSimulatorRunquick() throws Exception {
+
+		closeSimulator("5545");
+//    	lwm2miccid= "000863042346515";
+//	    lwm2mmsisdn="3045360903";
+		String filePath = "\\TestData\\LWM2M\\";
+		String fileName = lwm2miccid + "-" + lwm2mmsisdn + "_bootstrap-QA.bat";
+
+		logger.info("device id is " + lwm2miccid + "msisdn" + lwm2mmsisdn);
+		createNewFile(filePath, fileName);
+		
+		executeBatchFilequick(filePath);
 		Thread.sleep(2000);
 	}
 	
@@ -490,7 +509,12 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 		 FileWriter output = new FileWriter(fpath);
 		 logger.info("Environment to run Lwm2m Simulator is" +environment);
 		 if(environment.equalsIgnoreCase("QA")) {
-			 output.write("java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5545 -jar lwm2mTestClient-1.0.0.2-SNAPSHOT-jar-with-dependencies.jar -d urn:imei-msisdn:"+lwm2miccid+"-"+lwm2mmsisdn+ " -u coaps://xvzwcdpvi.xdev.motive.com:5684 -o bootstrap -b UQS -psk d6160c2e7c90399ee7d207a22611e3d3a87241b0462976b935341d000a91e747 -pskEncoding true -lifetime 60 -lwm2mModel ./CDP_JSON -p 10");		  
+			 if(Stepdef_19A.smsTxCounter==true) {
+				 output.write("java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5545 -jar lwm2mTestClient-1.0.0.2-SNAPSHOT-jar-with-dependencies.jar -d urn:imei-msisdn:"+lwm2miccid+"-"+lwm2mmsisdn+ " -u coaps://xvzwcdpvi.xdev.motive.com:5684 -o bootstrap -b UQS -psk d6160c2e7c90399ee7d207a22611e3d3a87241b0462976b935341d000a91e747 -pskEncoding true -lifetime 60 -lwm2mModel ./CDP_JSON1 -p 10");
+			 }
+			 else {
+				 output.write("java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5545 -jar lwm2mTestClient-1.0.0.2-SNAPSHOT-jar-with-dependencies.jar -d urn:imei-msisdn:"+lwm2miccid+"-"+lwm2mmsisdn+ " -u coaps://xvzwcdpvi.xdev.motive.com:5684 -o bootstrap -b UQS -psk d6160c2e7c90399ee7d207a22611e3d3a87241b0462976b935341d000a91e747 -pskEncoding true -lifetime 60 -lwm2mModel ./CDP_JSON -p 10");	
+			 }
 		 }
 		 if(environment.equalsIgnoreCase("PROD")) {
 			 output.write("java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5545 -jar lwm2mTestClient-1.0.0.2-SNAPSHOT-jar-with-dependencies.jar -d urn:imei-msisdn:"+lwm2miccid+"-"+lwm2mmsisdn+ " -u coaps://ddocdpboot.do.motive.com:5684 -o bootstrap -b UQS -psk d6160c2e7c90399ee7d207a22611e3d3a87241b0462976b935341d000a91e747 -pskEncoding true -lifetime 300 -lwm2mModel ./CDP_JSON -p 20");		  
@@ -562,6 +586,23 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 			
 
 		}
+		
+		public void executeBatchFilequick(String filePath) throws Exception {
+
+			String path = System.getProperty("user.dir") + filePath;
+			File dir = new File(path);
+			System.out.println("Started Lwm2m Simulator");
+
+			// ProcessBuilder pb = new ProcessBuilder("cmd", "/c","Start", "/min" , fpath);
+			ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "Start", "/B", fpath);
+			pb.directory(dir);
+
+			Process p = pb.start();
+			pb.command("cmd.exe", "/c", "echo", "u");
+			
+			logger.info("Simulator started successfully");
+			Thread.sleep(10000);
+		}
 	//MB
 	@Step
 	public void textBoxValue(String textValue) throws Exception {
@@ -582,6 +623,11 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 		 		WEB_Methods.WEB_SendKeys(WEB_Methods.WEB_findElement("XPATH",textValue), lwm2miccid+"00000");
 		 	}
 			
+		 	if(textValue.equalsIgnoreCase("SKU")) {
+		 		logger.info("SKU id is" +lwm2miccid+"76767");
+		 		WEB_Methods.WEB_SendKeys(WEB_Methods.WEB_findElement("XPATH",textValue), lwm2miccid+"76767");
+		 
+		 	}
 		}
 	
 	
@@ -892,6 +938,20 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 		return resp;
 	}
 	
+	public Response postDMRequest(String URL, String xmlBody,String impactUsername, String impactPassword ) {
+
+//		impactUsername= "iotuser";
+//		impactPassword="Motive@123";
+		System.out.println("impactUsername" +impactUsername);
+		final Response resp = given().auth().preemptive().basic(impactUsername,impactPassword)
+				.contentType("application/json").accept("application/json")
+				.body(xmlBody).when().post(URL).then()
+				.extract().response();
+		logger.info("Response Body" + resp.getBody());
+		logger.info("StatusCode" + resp.getStatusCode());
+		return resp;
+	}
+	
 	public Response getRequest(String URL,String tenantValue,String impactUsername,String impactPassword) {
 
 		final Response resp = given().auth().preemptive().basic(impactUsername,impactPassword).contentType("application/json").
@@ -901,20 +961,42 @@ public class Stepdef_CommonSteps extends WEB_Methods {
 		logger.info("StatusCode" + resp.getStatusCode());
 		return resp;
 	}
+	
+	public Response deleteDMRequest(String URL,String impactUsername,String impactPassword) {
+
+		final Response resp = given().auth().preemptive().basic(impactUsername,impactPassword).contentType("application/json").
+				when().delete(URL).then()
+				.statusCode(200).extract().response();
+		logger.info("Response Body" + resp.getBody());
+		logger.info("StatusCode" + resp.getStatusCode());
+		return resp;
+	}
+	
+	public Response getDMRequest(String URL,String impactUsername,String impactPassword) {
+
+		final Response resp = given().auth().preemptive().basic(impactUsername,impactPassword).contentType("application/json").
+				when().get(URL).then()
+				.statusCode(200).extract().response();
+		logger.info("Response Body" + resp.getBody());
+		logger.info("StatusCode" + resp.getStatusCode());
+		return resp;
+	}
 
 	
-public static String jsonData(String jsonFileName) throws Exception {
+public static String jsonData(String jsonFileName, String actionName) throws Exception {
 		
 		String json ="";
-		 jsonFileName="Operations.json";
+		 jsonFileName="CommonActionsOperations.json";
 		try {
 			
-			String fPath = System.getProperty("user.dir") + "\\TestData\\RESTAPI\\" +jsonFileName;
+			
+			String fpath= createJsonFile(jsonFileName,actionName);
+			
 	        JSONParser parser = new JSONParser();
 	        //Use JSONObject for simple JSON and JSONArray for array of JSON.
 	        JSONObject data = (JSONObject) parser.parse(
-	              new FileReader(fPath));//path to the JSON file.
-
+	              new FileReader(fpath));//path to the JSON file.
+             
 	         json = data.toJSONString();
 	        
 	        System.out.println("Json" +json);
@@ -925,6 +1007,34 @@ public static String jsonData(String jsonFileName) throws Exception {
 		
 		return json;
 	}
+
+     public static String createJsonFile(String jsonFileName, String actionName) throws Exception{
+    	 
+    	 
+    	 jsonFileName="CommonActionsOperations.json";
+    	 JSONObject jsonObject = new JSONObject();
+    	 logger.info("Action name is" +actionName);
+    	 jsonObject.put("actionId", WEB_Methods.WEB_getPropertyValue(actionName));
+    	// jsonObject.put("actionId", "809024");
+         jsonObject.put("needNotification", "true");
+         jsonObject.put("enabledNbiNotification", "true");
+         jsonObject.put("routingId", null);
+         jsonObject.put("delaySeconds",null);
+         jsonObject.put("failOnConnectivityFailure", "false");
+         jsonObject.put("smsPriority", null);
+    	 
+         String fPath = System.getProperty("user.dir") + "\\TestData\\RESTAPI\\" +jsonFileName;
+         
+        // FileChannel.open(Paths.get(fpath), StandardOpenOption.WRITE).truncate(0).close();
+       
+         FileWriter file = new FileWriter(fPath);
+         file.write(jsonObject.toJSONString());
+         file.close();
+         
+         
+    	 return  fPath;
+	
+     }
 
 	@SuppressWarnings("deprecation")
 	@Step
@@ -971,7 +1081,8 @@ public static String jsonData(String jsonFileName) throws Exception {
 		//s.executeBatchFile("");
 	//
 		//System.out.println("username" +WEB_Methods.WEB_getPropertyValue("LWM2M_Impact"));
-		s.createNewFile("\\TestData\\LWM2M\\", "000863040516816-3045319600_bootstrap-QA.bat");
+		//s.createNewFile("\\TestData\\LWM2M\\", "000863040516816-3045319600_bootstrap-QA.bat");
+		s.createJsonFile("", "AddObjectLWM2M-Server");
 	}
 	
 }

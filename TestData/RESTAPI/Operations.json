@@ -1,9 +1,1 @@
-{
-	"actionId": "5001",
-	"needNotification": true,
-	"enabledNbiNotification": true,
-	"routingId": null,
-	"delaySeconds": null,
-	"failOnConnectivityFailure": false,
-	"smsPriority": null
-}
+{"delaySeconds":null,"needNotification":"true","routingId":null,"enabledNbiNotification":"true","actionId":"2000","failOnConnectivityFailure":"false","smsPriority":null}

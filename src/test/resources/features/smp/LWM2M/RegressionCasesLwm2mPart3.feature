@@ -139,7 +139,8 @@ Scenario: MB_Regression_LWM2M-VZW-Chapter15Cases
      Then user select the "_15_01_Active_Timer" folders for test case "15.01 Active Timer" 
      Then user selects the "Play" button
 	 Then user validates the "15.01 Active Timer" test results for "VZ_TC_LWM2MOTADM" test case 
-     
+  
+    
 
 @MotiveBridge019
 Scenario: Logout from Motive Bridge

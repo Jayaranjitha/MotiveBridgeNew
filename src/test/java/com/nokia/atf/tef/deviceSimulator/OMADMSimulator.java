@@ -73,9 +73,10 @@ public class OMADMSimulator
 			sb.append(line + "\r\n");
 		}
 
+		System.out.println(line);
          br.close();
 		String response = sb.toString();
-		
+		System.out.println("da" +response);
 		ILoggable.logDebug(ProcessUtil.class, response);
 		return response;
 	}
@@ -249,7 +250,7 @@ public class OMADMSimulator
 //
     boolean status = n.runomadmSimulator(fpath);
 //		 System.out.println("Simulator has started success is true/false: " +status);
-		 
-            OMADMSimulator.taskKillByPort(5545);
+    
+            OMADMSimulator.taskKillByPort(5546);
     }
 }
