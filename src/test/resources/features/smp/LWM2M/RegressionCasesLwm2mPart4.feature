@@ -54,6 +54,7 @@ Scenario: MB_Sanity_DC_Upgrade-004-Adding test subscriptions for Lwm2m test case
 		   |LWM2M_GENERIC_UAT_MISC|
    		   |VZW_Ch14-HostDevice|
            |VZW_Ch16_NB-IoT|
+           |FOTAUponRegistration|
 	And user verifies the test suite created 
 	
    
