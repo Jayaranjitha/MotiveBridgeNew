@@ -139,7 +139,41 @@ Scenario: MB_Regression_LWM2M-VZW-Chapter15Cases
      Then user select the "_15_01_Active_Timer" folders for test case "15.01 Active Timer" 
      Then user selects the "Play" button
 	 Then user validates the "15.01 Active Timer" test results for "VZ_TC_LWM2MOTADM" test case 
-  
+     Then user closes the simulator in port "5545"
+
+    @MotiveBridge019
+Scenario: MB_Regression_LWM2M-047
+    
+      Given user closes the current window 
+     Then user switch back to parent window 
+     And user clicks on "VZW-Chapter15Cases" test set
+     Then user selects the "PlayButton" button
+     Then user is navigated to the "VZW-Chapter15Cases" testSet Page
+     And user runs the simulator "CPP_DCCommon"
+     Then user select the "_15_02_eDRX_Timer_WB_S1" folders for test case "15.02 eDRX Timer (WB-S1)"
+     And user hits the action "CreateOn_10_0_8" from the DM Impact
+     Then user wait for some time
+     Then user selects the "Play" button
+     Then user wait for some time
+     Then user validates the "15.02 eDRX Timer (WB-S1)" test results for "VZ_TC_LWM2MOTADM" test case
+     Then user closes the simulator in port "5546"
+    
+    
+    
+@MotiveBridge019
+Scenario: MB_Regression_LWM2M-048
+ 
+      Given user closes the current window 
+     Then user switch back to parent window 
+     And user runs the simulator "CPP_DCCommon"
+     Then user select the "_15_03_eDRX_NB_S1" folders for test case "15.03 eDRX (NB-S1)"
+     And user hits the action "CreateOn_10_0_9" from the DM Impact
+     Then user wait for some time
+     Then user selects the "Play" button
+     Then user wait for some time
+     Then user validates the "15.03 eDRX (NB-S1)" test results for "VZ_TC_LWM2MOTADM" test case
+     Then user closes the simulator in port "5546"
+      
     
 
 @MotiveBridge019
