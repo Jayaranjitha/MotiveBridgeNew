@@ -1,12 +1,10 @@
 #!/usr/bin/env groovy
 
-pipeline {
-    options { disableConcurrentBuilds() }
-    agent {
-    kubernetes {
-      label "k8s-vzw-op-${cto.devops.jenkins.Utils.getTimestamp()}"
-      inheritFrom 'k8s-dind-rootless '
-	  yaml """
+pipeline{
+    agent any
+    tools{
+        maven 
+    }
 spec:
   containers:
   - name: vzw-op-maven
