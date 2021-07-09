@@ -1,10 +1,6 @@
 #!/usr/bin/env groovy
 
 pipeline{
-    agent any
-    tools{
-        maven 
-    }
 spec:
   containers:
   - name: vzw-op-maven
