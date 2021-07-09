@@ -1,89 +1,56 @@
 #!/usr/bin/env groovy
 
-pipeline{
-spec:
-  containers:
-  - name: vzw-op-maven
-    image: docker.${ARTIFACTORY_URL}/aado/build_smp:latest-release
-    workingDir: /home/jenkins
-    command:
-    - cat
-    tty: true
-    env:
-    - name: "DOCKER_HOST"
-      value: "tcp://127.0.0.1:2375"
-  - name: vzw-op-npm
-    image: registry1-docker-io.repo.lab.pl.alcatel-lucent.com/node:10.9.0-alpine
-    workingDir: /home/jenkins
-    command:
-    - cat
-    tty: true
-      """
+pipeline {
+    options { disableConcurrentBuilds() }
+    agent {
+    kubernetes {
+      label 'k8s-vzw-motivebridge-${cto.devops.jenkins.Utils.getTimestamp()}'
+      inheritFrom 'k8s-build'
+      containerTemplate {
+        name 'vzw-motivebridge'
+        image "docker.${ARTIFACTORY_URL}/aado/build_smp:latest-release"
+        alwaysPullImage true
+        workingDir '/home/jenkins'
+        ttyEnabled true
+        command 'cat'
+        args ''
+      }
     }
-}
+  }
     stages {
         stage('Checkout') {
             steps{
                 checkout(
                   [$class: 'GitSCM',
                    branches: [[name: "${BRANCH_NAME}"]],
-                   doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
+                   doGenerateSubmoduleConfigurations: false, 
+				   extensions: [[$class: 'CloneOption', timeout: 120]], 
+				   submoduleCfg: [],
                        userRemoteConfigs: [[credentialsId: "cps-gerrit-ssh", refspec: "${BRANCH_NAME}",
                        url: "${GIT_URL}"]]
                   ]
                 )
             }
         }
-        
-		
-	stage('Setup Env') {
-        steps {
-        container('vzw-op-npm') {
-        sh '''
-            npm config set registry https://repo.lab.pl.alcatel-lucent.com/api/npm/smp-npm-dependencies
-            npm config set cafile /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-        '''
-        }
-      }
-    }
-	
-	
-
-     stage("Configure Maven") {
-            steps {
-                container('vzw-op-maven') {
-                    withCredentials([usernamePassword(credentialsId: 'cps-artifactory',
-                            usernameVariable: 'USERNAME',
-                            passwordVariable: 'PASSWORD')]) {
-                        sh """
-                            sudo sed -i s/MAVEN_USERNAME/${USERNAME}/ settings.xml
-                            sudo sed -i s/MAVEN_PASSWORD/${PASSWORD}/ settings.xml
-                        """
-                    }
-                }
-            }
-        }
-
-	stage('Build & Publish'){
+        stage('Build & Publish'){
             environment {
                 JAVA_HOME = '/usr/java/jdk1.8.0_121'
                 MAVEN_HOME = '/opt/apache-maven'
-		ARTIFACTORY_KEY = credentials('cps-artifactory')
             }
             steps{
-		container('vzw-op-maven') {
-		sh "echo 'GIT URL'"
-		sh "echo ${GIT_URL}"
-		sh "ls -ltr"
-
-		sh "/opt/apache-maven/bin/mvn -gs settings.xml -f pom.xml clean test -Datf.tags=@login"         
-
-
-		}
+				container('vzw-motivebridge') {
+                script{
+                    def server = Artifactory.server env.ARTIFACTORY_SERVER_ID
+                    server.credentialsId = 'cps-artifactory'
+                    def rtMaven = Artifactory.newMavenBuild()
+                    rtMaven.resolver server: server, releaseRepo: 'maven_motive', snapshotRepo: 'maven_motive'
+                    rtMaven.deployer server: server, releaseRepo: 'cps-mvn-releases', snapshotRepo: 'cps-mvn-snapshots'
+                    buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -P FULL_BUILD -DskipTests=true'
+                    server.publishBuildInfo buildInfo
+                }
+				}
             }
-        }		
-	
-	
+        }
     }
     post {
         always {
